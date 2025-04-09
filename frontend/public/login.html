@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Login - WorshipFinder</title>
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    .login-container {
+      background-color: white;
+      max-width: 400px;
+      margin: 50px auto;
+      padding: 30px 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      box-sizing: border-box;
+    }
+
+    .login-container h2 {
+      text-align: center;
+      color: black;
+      margin-bottom: 20px;
+    }
+
+    .login-container form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .login-container label {
+      text-align: left;
+      margin: 10px 0 5px;
+    }
+
+    .login-container input[type="text"],
+    .login-container input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+
+    .login-container input[type="submit"] {
+      background-color: #4d6f4a;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .login-container input[type="submit"]:hover {
+      background-color: #3e5d3b;
+    }
+
+    .login-container p {
+      margin-top: 15px;
+      text-align: center;
+    }
+
+    .login-container a {
+      color: #4d6f4a;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-container">
+      <div class="logo">WorshipFinder</div>
+      <nav>
+        <a href="index.html">Beranda</a>
+        <div class="dropdown">
+          <a href="#" class="dropdown-toggle">Data</a>
+          <div class="dropdown-menu">
+            <a href="detail/masjid.html">Profil Masjid</a>
+            <a href="detail/gereja-katolik.html">Profil Gereja Katolik</a>
+            <a href="detail/gereja-protestan.html">Profil Gereja Protestan</a>
+            <a href="detail/pura.html">Profil Pura</a>
+            <a href="detail/vihara.html">Profil Vihara</a>
+            <a href="detail/kelenteng.html">Profil Kelenteng</a>
+          </div>
+        </div>
+          <a href="kontak.html">Kontak Kami</a>
+          <a href="login.html">Login</a>
+      </nav>
+    </div>
+  </header>
+  
+  <div class="login-container">
+    <h2>Login</h2>
+    <form id="loginForm">
+      <label for="email">E-Mail</label>
+      <input type="text" id="email" name="email" required>
+    
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" required>
+    
+      <input type="submit" value="Masuk">
+    </form>
+    <p>Belum punya akun? <a href="register.html">Buat akun</a></p>
+  </div>
+
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+  
+      const email = document.getElementById("email").value; // kamu pakai name="username", tapi backend pakai email
+      const password = document.getElementById("password").value;
+  
+      try {
+        const res = await fetch("http://localhost:3000/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ email, password })
+        });
+  
+        const result = await res.json();
+  
+        if (res.ok) {
+          alert("Login berhasil. Selamat datang, " + result.user.nama_user + "!");
+          window.location.href = "index.html";
+        } else {
+          alert(result.message || "Gagal login.");
+        }
+  
+      } catch (error) {
+        console.error(error);
+        alert("Terjadi kesalahan saat login.");
+      }
+    });
+  </script>
+</body>
+</html>

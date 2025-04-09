@@ -1,0 +1,76 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f0f0f0;
+  }
+  
+  header {
+    background-color: #4d6f4a;
+    color: white;
+    padding: 20px 30px;
+    font-family: Arial, sans-serif; /* Tambahkan ini untuk header default */
+  }
+  
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .logo {
+    font-size: 28px;
+    font-family: 'Georgia', serif; /* Khusus logo */
+    font-weight: bold;
+  }
+  
+  nav {
+    display: flex;
+    gap: 20px;
+  }
+  
+  nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+    font-family: Arial, sans-serif; /* Pastikan nav pakai Arial */
+  }
+
+  .dropdown {
+    position: relative;
+  }
+  
+  .dropdown-toggle::after {
+    content: " ▼";
+    font-size: 12px;
+  }
+  
+  .dropdown-menu {
+    position: absolute;
+    background-color: white;
+    top: 100%;
+    left: 0;
+    display: none;
+    flex-direction: column;
+    min-width: 200px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+  }
+  
+  .dropdown-menu a {
+    color: #2f4f2f;
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block;
+    font-weight: normal;
+  }
+  
+  .dropdown-menu a:hover {
+    background-color: #eaf1eb;
+  }
+  
+  .dropdown:hover .dropdown-menu {
+    display: flex;
+  }
+  
+  

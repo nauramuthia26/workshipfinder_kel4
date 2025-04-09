@@ -1,0 +1,144 @@
+  <!DOCTYPE html>
+  <html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>WorshipFinder</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      .login-container {
+        background-color: white;
+        width: 100%;
+        max-width: 400px;
+        margin: 40px auto;
+        padding: 30px 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        box-sizing: border-box;
+      }
+
+      .login-container h2 {
+        color: black;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .login-container form {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .login-container label {
+        text-align: left;
+        margin: 10px 0 5px;
+      }
+
+      .login-container input[type="text"],
+      .login-container input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+        margin-bottom: 15px;
+      }
+
+      .login-container input[type="submit"] {
+        background-color: #4d6f4a;
+        color: white;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      .login-container input[type="submit"]:hover {
+        background-color: #3e5d3b;
+      }
+
+      .login-container p {
+        margin-top: 15px;
+        text-align: center;
+      }
+
+      .login-container a {
+        color: #4d6f4a;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="header-container">
+        <div class="logo">WorshipFinder</div>
+        <nav>
+          <a href="index.html">Beranda</a>
+          <div class="dropdown">
+            <a href="#" class="dropdown-toggle">Data</a>
+            <div class="dropdown-menu">
+              <a href="detail/masjid.html">Profil Masjid</a>
+              <a href="detail/gereja-katolik.html">Profil Gereja Katolik</a>
+              <a href="detail/gereja-protestan.html">Profil Gereja Protestan</a>
+              <a href="detail/pura.html">Profil Pura</a>
+              <a href="detail/vihara.html">Profil Vihara</a>
+              <a href="detail/kelenteng.html">Profil Kelenteng</a>
+            </div>
+          </div>
+          <a href="kontak.html">Kontak Kami</a>
+          <a href="login.html">Login</a>
+        </nav>
+      </div>
+    </header>
+
+    <div class="login-container">
+      <h2>Buat Akun</h2>
+      <form id="registerForm">
+        <label for="username">Nama Pengguna</label>
+        <input type="text" id="nama_user" name="nama_user" required>
+      
+        <label for="email">E-Mail</label>
+        <input type="text" id="email" name="email" required>
+      
+        <label for="no_tlp">Nomor Telepon</label>
+        <input type="text" id="no_tlp" name="no_tlp" required>
+      
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required>
+      
+        <input type="submit" value="Daftar">
+      </form>
+      <p>Sudah punya akun? <a href="login.html">Login</a></p>
+    </div>
+  </body>
+  <script>
+    document.getElementById("registerForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const data = {
+      nama_user: document.getElementById("nama_user").value,
+      email: document.getElementById("email").value,
+      no_tlp: document.getElementById("no_tlp").value,
+      password: document.getElementById("password").value
+    };
+
+    try {
+      const res = await fetch("http://localhost:3000/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      });
+
+      const result = await res.json();
+      alert(result.message || "Pendaftaran berhasil!");
+      window.location.href = "login.html";
+    } catch (err) {
+      console.error(err);
+      alert("Terjadi kesalahan saat daftar.");
+    }
+  });
+  </script>
+  </html>
