@@ -7,6 +7,6 @@ const db = require('../config/db');
 router.post("/register", userController.createUser);
 
 // Route untuk Login (POST) – bisa ditambahkan logika verifikasi nanti
-router.post("/login", userController.loginUser); // (Tambahkan di controller juga)
+router.post("/login", userController.loginUser); 
 
 module.exports = router;
