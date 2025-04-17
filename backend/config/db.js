@@ -113,6 +113,16 @@ db.connect((err) => {
     );
 `;
 
+// 🔹 Membuat tabel Tempat_Ibadah_Approval jika belum ada
+    const createFotoTable = `
+    CREATE TABLE IF NOT EXISTS Foto (
+    foto_id INT AUTO_INCREMENT PRIMARY KEY,
+    tempat_id INT,
+    url TEXT NOT NULL,
+    FOREIGN KEY (tempat_id) REFERENCES Tempat_Ibadah(tempat_id) ON DELETE CASCADE
+    );
+`;
+
     // Eksekusi query untuk membuat tabel
     db.query(createUsersTable, (err, result) => {
         if (err) {
@@ -169,6 +179,16 @@ db.connect((err) => {
             console.log("Tempat_Ibadah_Approval table ready!");
         }
     });
+
+    db.query(createFotoTable, (err, result) => {
+        if (err) {
+            console.error("Error creating Foto table: ", err);
+        } else {
+            console.log("Foto table ready!");
+        }
+    });
 });
+
+
 
 module.exports = db;

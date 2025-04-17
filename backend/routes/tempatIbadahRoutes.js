@@ -4,6 +4,8 @@ const tempatIbadahController = require("../controllers/tempatIbadahController");
 
 router.post("/", tempatIbadahController.createTempatIbadah);
 router.get("/", tempatIbadahController.getAllTempatIbadah);
+router.get("/:id/fasilitas", tempatIbadahController.getFasilitasByTempatIbadah);
+router.get("/:id/foto", tempatIbadahController.getFotoByTempatIbadah);
 router.get("/:tempat_id", tempatIbadahController.getTempatIbadahById);
 router.put("/:tempat_id", tempatIbadahController.updateTempatIbadah);
 router.delete("/:tempat_id", tempatIbadahController.deleteTempatIbadah);

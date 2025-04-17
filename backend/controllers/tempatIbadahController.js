@@ -84,3 +84,25 @@ exports.deleteTempatIbadah = (req, res) => {
         res.json({ message: "Tempat Ibadah berhasil dihapus" });
     });
 };
+
+// Mengambil fasilitas dari satu tempat ibadah
+exports.getFasilitasByTempatIbadah = (req, res) => {
+    const tempatIbadahId = req.params.id;
+    const sql = "SELECT * from fasilitas WHERE tempat_ibadah_id = ? ";
+
+    db.query(sql, [tempatIbadahId], (err, results) => {
+        if (err) return res.status(500).json({ message: "Gagal mengambil fasilitas", error: err });
+        res.json(results);
+    });
+};
+
+// Melihat foto dari satu tempat ibadah
+exports.getFotoByTempatIbadah = (req, res) => {
+    const tempatIbadahId = req.params.id;
+    const sql = "SELECT * from Foto WHERE tempat_id = ?";
+
+    db.query(sql, [tempatIbadahId], (err, results) => {
+        if (err) return res.status(500).json({ message: "Gagal mengambil foto", error: err });
+        res.json(results);
+    });
+};

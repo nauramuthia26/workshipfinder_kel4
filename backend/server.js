@@ -11,7 +11,8 @@ const ulasanRoutes = require('./routes/ulasan');
 const tempatIbadahRequestRoutes = require('./routes/tempatIbadahRequest');
 const tempatIbadahApprovalRoutes = require('./routes/tempatIbadahApproval');
 const tempatIbadahRoutes = require("./routes/tempatIbadahRoutes");
-
+const eventRoutes = require("./routes/eventRoutes");
+const fotoRoutes = require("./routes/fotoRoutes");
 
 // Middleware
 app.use(express.urlencoded({ extended: true }));
@@ -29,6 +30,8 @@ app.use('/tempatIbadahRequest', tempatIbadahRequestRoutes);
 app.use('/tempatIbadahApproval', tempatIbadahApprovalRoutes);
 app.use('/auth', authRoutes);
 app.use("/api/tempat-ibadah", tempatIbadahRoutes);
+app.use("/api/event", eventRoutes);
+app.use("/api/foto", fotoRoutes);
 app.use('/filter', filterRoutes);
 
 const PORT = process.env.PORT || 3000;

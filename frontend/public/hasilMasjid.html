@@ -47,41 +47,46 @@
 
   <script>
     const urlParams = new URLSearchParams(window.location.search);
-    const tipologi = urlParams.get('tipologi');
-    const provinsi = urlParams.get('provinsi');
-    const kabupaten = urlParams.get('kabupaten');
+const tipologi = urlParams.get('tipologi');
+const provinsi = urlParams.get('provinsi');
+const kabupaten = urlParams.get('kabupaten');
 
-    document.getElementById("filter-info").innerHTML = `
-      <p><strong>Tipologi:</strong> ${tipologi}</p>
-      <p><strong>Provinsi:</strong> ${provinsi}</p>
-      <p><strong>Kabupaten:</strong> ${kabupaten}</p>
-    `;
+document.getElementById("filter-info").innerHTML = `
+  <p><strong>Tipologi:</strong> ${tipologi}</p>
+  <p><strong>Provinsi:</strong> ${provinsi}</p>
+  <p><strong>Kabupaten:</strong> ${kabupaten}</p>
+`;
 
-    fetch(`http://localhost:3000/api/tempat-ibadah/search?tipologi=${tipologi}&provinsi=${provinsi}&kabupaten=${kabupaten}`)
-      .then(response => response.json())
-      .then(data => {
-        const container = document.getElementById("hasil-container");
-        if (data.length === 0) {
-          container.innerHTML = "<p>Tidak ada hasil ditemukan.</p>";
-        } else {
-          data.forEach(item => {
-            const card = document.createElement("div");
-            card.className = "card";
-            card.innerHTML = `
-              <h3>${item.nama_tempat}</h3>
-              <p><strong>Buka:</strong> ${item.jam_buka} WIB - <strong>Tutup:</strong> ${item.jam_tutup} WIB</p>
-              <p><strong>Kapasitas:</strong> ${item.kapasitas} Orang</p>
-              <p>${item.alamat}</p>
-              <button onclick="window.open('${item.link_peta}', '_blank')">Lihat Peta</button>
-            `;
-            container.appendChild(card);
-          });
-        }
-      })
-      .catch(err => {
-        console.error(err);
-        document.getElementById("hasil-container").innerHTML = "<p>Gagal mengambil data.</p>";
+fetch(`http://localhost:3000/api/tempat-ibadah/search?tipologi=${tipologi}&provinsi=${provinsi}&kabupaten=${kabupaten}`)
+  .then(response => response.json())
+  .then(data => {
+    const container = document.getElementById("hasil-container");
+    if (data.length === 0) {
+      container.innerHTML = "<p>Tidak ada hasil ditemukan.</p>";
+    } else {
+      data.forEach(item => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <div class="card-image">
+            <img src="${item.image_url}" alt="${item.nama_tempat}" />
+          </div>
+          <div class="card-content">
+            <h3>${item.nama_tempat}</h3>
+            <p><strong>Buka:</strong> ${item.jam_buka} WIB - <strong>Tutup:</strong> ${item.jam_tutup} WIB</p>
+            <p><strong>Kapasitas:</strong> ${item.kapasitas} Orang</p>
+            <p>${item.alamat}</p>
+            <button onclick="window.open('${item.link_peta}', '_blank')">Lihat Peta</button>
+          </div>
+        `;
+        container.appendChild(card);
       });
+    }
+  })
+  .catch(err => {
+    console.error(err);
+    document.getElementById("hasil-container").innerHTML = "<p>Gagal mengambil data.</p>";
+  });
   </script>
 </body>
 </html>

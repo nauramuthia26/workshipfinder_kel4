@@ -55,4 +55,15 @@ router.delete("/:fasilitas_id", (req, res) => {
     });
 });
 
+// Mengambil fasilitas dari satu tempat ibadah
+exports.getFasilitasByTempatIbadah = (req, res) => {
+    const tempatIbadahId = req.params.id;
+    const sql = "SELECT * from fasilitas WHERE tempat_ibadah_id = ? ";
+
+    db.query(sql, [tempatIbadahId], (err, results) => {
+        if (err) return res.status(500).json({ message: "Gagal mengambil fasilitas", error: err });
+        res.json(results);
+    });
+};
+
 module.exports = router;
