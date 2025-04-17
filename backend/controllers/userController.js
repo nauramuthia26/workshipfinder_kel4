@@ -4,11 +4,14 @@ const db = require('../config/db');
 
 // ✅ CREATE - Tambah user baru
 exports.createUser = (req, res) => {
-    const { nama_user, email, no_tlp, password, role } = req.body;
+    const { nama_user, email, no_tlp, password } = req.body;
     const sql = "INSERT INTO Users (nama_user, email, no_tlp, password, role) VALUES (?, ?, ?, ?, 'user')";
     db.query(sql, [nama_user, email, no_tlp, password], (err, result) => {
-        if (err) return res.status(500).send(err);
-        res.status(201).json({ message: "User created", userId: result.insertId });
+        if (err) {
+            console.error("Error saat insert user:", err);
+            return res.status(500).json({ message: "Gagal mendaftarkan user" });
+        }
+        res.status(201).json({ message: "User berhasil didaftarkan", userId: result.insertId });
     });
 };
 

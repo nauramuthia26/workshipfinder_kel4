@@ -1,6 +1,13 @@
 const express = require('express');
 const path = require('path');
+const cors = require("cors");
+app.use(cors());
 const app = express();
+
+const authRoutes = require('../backend/routes/authRoutes');
+const tempatIbadahRoutes = require('../backend/routes/tempatIbadahRoutes');
+app.use('/', authRoutes);
+app.use('/api', tempatIbadahRoutes);
 
 // Middleware untuk parsing form
 app.use(express.urlencoded({ extended: true }));

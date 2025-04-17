@@ -76,21 +76,21 @@
         <nav>
           <a href="index.html">Beranda</a>
           <div class="dropdown">
-            <a href="#" class="dropdown-toggle">Data</a>
-            <div class="dropdown-menu">
-              <a href="detail/masjid.html">Profil Masjid</a>
-              <a href="detail/gereja-katolik.html">Profil Gereja Katolik</a>
-              <a href="detail/gereja-protestan.html">Profil Gereja Protestan</a>
-              <a href="detail/pura.html">Profil Pura</a>
-              <a href="detail/vihara.html">Profil Vihara</a>
-              <a href="detail/kelenteng.html">Profil Kelenteng</a>
+              <a href="#" class="dropdown-toggle">Data</a>
+              <div class="dropdown-menu">
+                <a href="hasilMasjid.html">Profil Masjid</a>
+                <a href="hasilKatolik.html">Profil Gereja Katolik</a>
+                <a href="hasilProtestan.html">Profil Gereja Protestan</a>
+                <a href="hasilPura.html">Profil Pura</a>
+                <a href="hasilVihara.html">Profil Vihara</a>
+                <a href="hasilKelenteng.html">Profil Kelenteng</a>
+              </div>
             </div>
-          </div>
           <a href="kontak.html">Kontak Kami</a>
-          <a href="login.html">Login</a>
-        </nav>
-      </div>
-    </header>
+        <a href="login.html">Login</a>
+      </nav>
+    </div>
+  </header>
 
     <div class="login-container">
       <h2>Buat Akun</h2>
@@ -124,7 +124,7 @@
     };
 
     try {
-      const res = await fetch("http://localhost:3000/register", {
+      const res = await fetch("http://localhost:3000/auth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

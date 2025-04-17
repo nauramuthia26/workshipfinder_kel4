@@ -110,11 +110,11 @@
     document.getElementById("loginForm").addEventListener("submit", async function (e) {
       e.preventDefault();
   
-      const email = document.getElementById("email").value; // kamu pakai name="username", tapi backend pakai email
+      const email = document.getElementById("email").value; 
       const password = document.getElementById("password").value;
   
       try {
-        const res = await fetch("http://localhost:3000/login", {
+        const res = await fetch("http://localhost:3000/auth/login", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
