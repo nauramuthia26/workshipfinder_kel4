@@ -21,6 +21,16 @@ router.get("/", (req, res) => {
     });
 });
 
+// ✅ READ Detail Tempat
+router.get("/:id", (req, res) => {
+    const { id } = req.params;
+    db.query("SELECT * FROM Tempat_Ibadah WHERE tempat_id=?", [id], (err, result) => {
+        if (err) return res.status(500).send(err);
+        if (result.length === 0) return res.status(404).json({ message: "Tempat Ibadah not found" });
+        res.json(result[0]);
+    });
+});
+
 // ✅ UPDATE Tempat Ibadah
 router.put("/:id", (req, res) => {
     const { id } = req.params;
