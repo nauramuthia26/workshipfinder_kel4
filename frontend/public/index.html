@@ -111,6 +111,16 @@
     </style>
   </head>
   <body>
+ 
+    <script>
+      window.onload = function () {
+        if (localStorage.getItem('isLoggedIn') !== 'true') {
+          window.location.href = "index.html";
+        }
+      };
+    </script>
+    
+    
     <header>
       <div class="header-container">
         <div class="logo">WorshipFinder</div>
@@ -119,7 +129,7 @@
           <div class="dropdown">
             <a href="#" class="dropdown-toggle">Data</a>
             <div class="dropdown-menu">
-              <a href="./hasilMasjid.html">Profil Masjid</a>
+              <a href="detail/detail.html">Profil Masjid</a>
               <a href="detail/gereja-katolik.html">Profil Gereja Katolik</a>
               <a href="detail/gereja-protestan.html">Profil Gereja Protestan</a>
               <a href="detail/pura.html">Profil Pura</a>
@@ -127,8 +137,8 @@
               <a href="detail/kelenteng.html">Profil Kelenteng</a>
             </div>
           </div>
-          <a href="kontak.html">Kontak Kami</a>
-          <a href="login.html">Login</a>
+          <a href="kontak2.html">Kontak Kami</a>
+          <a href="#" id="auth-link">Login</a>
         </nav>
       </div>
     </header>
@@ -325,5 +335,8 @@
         });
       });
     </script>
+
+  <script src="js/main.js"></script>
+
   </body>
 </html>

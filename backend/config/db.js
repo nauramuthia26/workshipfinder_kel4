@@ -136,13 +136,17 @@ db.connect((err) => {
     );
 `;
 
-    const creatkontakTable = '
-       CREATE TABLE `kontak` (
-        `nama` varchar(50) NOT NULL,
-        `email` varchar(50) NOT NULL,
-        `pesan` text NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci
-        ); 
-';
+    // 🔹 Membuat tabel Kontak
+    const createKontakTable = `
+    CREATE TABLE IF NOT EXISTS Kontak (
+    kontak_id INT AUTO_INCREMENT PRIMARY KEY,
+    nama VARCHAR(50) NOT NULL,
+    email VARCHAR(50) NOT NULL,
+    pesan TEXT NOT NULL
+    ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci
+    );
+`;
+
     
     // Eksekusi query untuk membuat tabel
     db.query(createUsersTable, (err, result) => {

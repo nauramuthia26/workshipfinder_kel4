@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const db = require('../config/db');
+const mongoose = require("mongoose");
+const UlasanMongo = require('../models/ulasan');
 
 // ✅ CREATE Ulasan
 router.post("/", (req, res) => {
@@ -14,7 +16,7 @@ router.post("/", (req, res) => {
 });
 
 // ✅ READ Semua Ulasan
-router.get("/", (req, res) => {
+router.get("/al", (req, res) => {
     db.query("SELECT * FROM Ulasan", (err, results) => {
         if (err) return res.status(500).send(err);
         res.json(results);
@@ -87,5 +89,32 @@ router.delete("/:ulasan_id", (req, res) => {
         res.json({ message: "Ulasan berhasil dihapus" });
     });
 });
+
+
+// MongoDB Endpoints
+router.post("/mongo", async (req, res) => {
+    try {
+      const { nama, ulasan, rating, masjid } = req.body;
+      const newUlasan = new UlasanMongo({ nama, ulasan, rating, masjid });
+      await newUlasan.save();
+      res.send("Ulasan (MongoDB) berhasil disimpan!");
+    } catch (err) {
+      console.error(err);
+      res.status(500).send("Gagal menyimpan ulasan MongoDB");
+    }
+  });
+  
+  router.get("/mongo", async (req, res) => {
+    try {
+      const data = await UlasanMongo.find();
+      res.json(data);
+    } catch (err) {
+      console.error(err);
+      res.status(500).send("Gagal ambil data ulasan MongoDB");
+    }
+  });
+  
+  module.exports = router;
+
 
 module.exports = router;

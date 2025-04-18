@@ -14,7 +14,7 @@ const ulasanSchema = new mongoose.Schema({
     required: true
   },
   masjid: {
-    type: String, // bisa diganti ke ID masjid kalau datanya kompleks
+    type: String, 
     required: true
   },
   createdAt: {

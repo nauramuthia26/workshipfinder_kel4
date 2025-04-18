@@ -1,6 +1,9 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
+const mongoose = require('mongoose');
+const Kontak = require('./models/kontak');
 const filterRoutes = require('./routes/filterRoutes');
 const authRoutes = require("./routes/authRoutes");
 const loginRateLimiter = require('./middlewares/loginRateLimiter');
@@ -13,7 +16,21 @@ const tempatIbadahApprovalRoutes = require('./routes/tempatIbadahApproval');
 const tempatIbadahRoutes = require("./routes/tempatIbadahRoutes");
 const eventRoutes = require("./routes/eventRoutes");
 const fotoRoutes = require("./routes/fotoRoutes");
-const kontakRoutes = require('./router/kontakKami');
+const kontakRoutes = require('./routes/kontakRoutes');
+
+app.use(cors());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+
+// Koneksi ke MongoDB
+mongoose.connect('mongodb://localhost:27017/worshipfinder_kel4', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+.then(() => console.log('Terhubung ke MongoDB'))
+.catch((err) => console.error('Gagal konek MongoDB:', err));
+
 
 // Middleware
 app.use(express.urlencoded({ extended: true }));
@@ -34,6 +51,7 @@ app.use("/api/tempat-ibadah", tempatIbadahRoutes);
 app.use("/api/event", eventRoutes);
 app.use("/api/foto", fotoRoutes);
 app.use("/api/event", eventRoutes);
+app.use('/api', kontakRoutes);
 app.use('/filter', filterRoutes);
 app.use('/kontakKami', kontakRoutes);
 

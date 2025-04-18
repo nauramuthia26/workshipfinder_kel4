@@ -13,4 +13,6 @@ router.post("/login", loginRateLimiter, userController.loginUser);
 
 router.post("/google", authController.googleLogin);
 
+router.get("/users/:id_user", userController.getUserById);
+
 module.exports = router;

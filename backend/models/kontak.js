@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+
 const kontakSchema = new mongoose.Schema({
   nama: {
     type: String,

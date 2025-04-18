@@ -126,6 +126,7 @@
   
       const result = await res.json();
       if (res.ok) {
+        localStorage.setItem("isLoggedIn", "true");
         localStorage.setItem("token", result.token);
         alert("Login berhasil dengan Google!");
         window.location.href = "index.html";
@@ -153,6 +154,7 @@
         const result = await res.json();
   
         if (res.ok) {
+          localStorage.setItem("isLoggedIn", "true");
           alert("Login berhasil. Selamat datang, " + result.user.nama_user + "!");
           window.location.href = "index.html";
         } else {

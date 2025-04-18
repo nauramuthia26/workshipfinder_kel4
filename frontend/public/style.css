@@ -1,14 +1,15 @@
-body {
+  body {
     font-family: Arial, sans-serif;
     margin: 0;
     background-color: #f0f0f0;
   }
   
+  
   header {
     background-color: #4d6f4a;
     color: white;
     padding: 20px 30px;
-    font-family: Arial, sans-serif; /* Tambahkan ini untuk header default */
+    font-family: Arial, sans-serif; 
   }
   
   .header-container {
@@ -19,7 +20,7 @@ body {
   
   .logo {
     font-size: 28px;
-    font-family: 'Georgia', serif; /* Khusus logo */
+    font-family: 'Georgia', serif; 
     font-weight: bold;
   }
   
@@ -33,7 +34,7 @@ body {
     text-decoration: none;
     font-weight: bold;
     font-size: 18px;
-    font-family: Arial, sans-serif; /* Pastikan nav pakai Arial */
+    font-family: Arial, sans-serif; 
   }
 
   .dropdown {
