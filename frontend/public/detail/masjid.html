@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detail Masjid - WorshipFinder</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f4f0;
+    }
+
+    header {
+      background-color: #4d6f4a;
+      padding: 15px;
+      color: white;
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+
+    .content {
+      max-width: 900px;
+      margin: 30px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      color: #2f4f2f;
+    }
+
+    .detail-image {
+      width: 30%;
+      max-height: 250px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    .info-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .info-table td {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .info-table td.label {
+      font-weight: bold;
+      color: #2f4f2f;
+      width: 30%;
+    }
+
+    .review-section {
+      margin-top: 40px;
+    }
+
+    .review-section form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .review-section input,
+    .review-section textarea,
+    .review-section select {
+      margin-bottom: 15px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .review-section button {
+      background-color: #4d6f4a;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .review-section button:hover {
+      background-color: #3e5d3b;
+    }
+
+    .success-message {
+      color: green;
+      margin-top: 10px;
+    }
+
+    footer {
+      background-color: #4d6f4a;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-container">
+      <div class="logo">WorshipFinder</div>
+      <nav>
+        <a href="../index.html">Beranda</a>
+        <a href="#">Kontak</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="content">
+    <h2>Detail Masjid</h2>
+
+    <div style="text-align: center;">
+        <img src="../assets/almuhajirin.jpg" alt="Masjid" class="detail-image">
+    </div>
+
+    <table class="info-table">
+      <tr>
+        <td class="label">Nama Masjid</td>
+        <td>Masjid Raya Al-Muhajirin</td>
+      </tr>
+      <tr>
+        <td class="label">Lokasi</td>
+        <td>Jl. Merdeka No.10, Jakarta Pusat</td>
+      </tr>
+      <tr>
+        <td class="label">Tipologi</td>
+        <td>Masjid Raya</td>
+      </tr>
+      <tr>
+        <td class="label">Tahun Berdiri</td>
+        <td>1985</td>
+      </tr>
+      <tr>
+        <td class="label">Kapasitas Jamaah</td>
+        <td>2000 orang</td>
+      </tr>
+      <tr>
+        <td class="label">Fasilitas</td>
+        <td>Tempat Wudhu, Toilet, Parkir, Perpustakaan</td>
+      </tr>
+      <tr>
+        <td class="label">Deskripsi</td>
+        <td>Masjid ini menjadi pusat kegiatan keagamaan dan sosial di wilayah Jakarta Pusat. Memiliki desain arsitektur modern dengan kubah besar dan menara tinggi.</td>
+      </tr>
+    </table>
+
+    <!-- ULASAN FORM -->
+    <div class="review-section">
+      <h3>Beri Ulasan</h3>
+      <form id="reviewForm">
+        <input type="text" id="nama" name="nama" placeholder="Nama Anda" required>
+        <textarea id="ulasan" name="ulasan" rows="4" placeholder="Tulis ulasan Anda..." required></textarea>
+        <select id="rating" name="rating" required>
+          <option value="">Pilih Rating</option>
+          <option value="5">5 - Sangat Baik</option>
+          <option value="4">4 - Baik</option>
+          <option value="3">3 - Cukup</option>
+          <option value="2">2 - Kurang</option>
+          <option value="1">1 - Buruk</option>
+        </select>
+        <button type="submit">Kirim Ulasan</button>
+        <div class="success-message" id="ulasanTerkirim"></div>
+      </form>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>&copy; 2025 WorshipFinder. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    document.getElementById('reviewForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const nama = document.getElementById('nama').value;
+      const ulasan = document.getElementById('ulasan').value;
+      const rating = document.getElementById('rating').value;
+      const masjid = "Masjid Raya Al-Muhajirin"; // Bisa diganti dinamis kalau data masjid dari database
+
+      try {
+        const response = await fetch('http://localhost:3000/api/ulasan', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ nama, ulasan, rating, masjid })
+        });
+
+        if (response.ok) {
+          document.getElementById('ulasanTerkirim').innerText = `Terima kasih, ${nama}! Ulasan Anda telah dikirim.`;
+          this.reset();
+        } else {
+          document.getElementById('ulasanTerkirim').innerText = 'Gagal mengirim ulasan.';
+        }
+      } catch (err) {
+        console.error(err);
+        document.getElementById('ulasanTerkirim').innerText = 'Terjadi kesalahan.';
+      }
+    });
+  </script>
+
+</body>
+</html>
