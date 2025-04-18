@@ -25,17 +25,16 @@ app.use(bodyParser.json());
 
 // Koneksi ke MongoDB
 mongoose.connect('mongodb://localhost:27017/worshipfinder_kel4', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
-.then(() => console.log('Terhubung ke MongoDB'))
-.catch((err) => console.error('Gagal konek MongoDB:', err));
-
-
-// Middleware
-app.use(express.urlencoded({ extended: true }));
-app.use(cors());
-app.use(express.json());
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  })
+  .then(() => console.log('Terhubung ke MongoDB'))
+  .catch((err) => console.error('Gagal konek MongoDB:', err));
+  
+  // Middleware
+  app.use(express.urlencoded({ extended: true }));
+  app.use(cors());
+  app.use(express.json());
 
 // Gunakan route users dan tempat ibadah
 app.use('/users', usersRoutes);
