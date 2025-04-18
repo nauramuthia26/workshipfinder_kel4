@@ -51,4 +51,43 @@ router.delete("/:id", (req, res) => {
     });
 });
 
+// ✅ GET tempat-ibadah Lihat semua ulasan
+router.get("/:id/ulasan", (req, res) => {
+    const { id } = req.params;
+    const sql = `
+        SELECT r.*, u.nama_user FROM reviews r JOIN users u ON r.user_id = u.id_user WHERE r.tempat_ibadah_id = ?`;
+    db.query(sql, [id], (err, results) => {
+        if (err) return res.status(500).send(err);
+        res.json(results);
+    });
+});
+
+router.get("/:id/fasilitas", (req, res) => {
+    const { id } = req.params;
+    const sql = `
+        SELECT * FROM fasilitas 
+        WHERE tempat_ibadah_id = ?`;
+
+    db.query(sql, [id], (err, results) => {
+        if (err) return res.status(500).send(err);
+        res.json(results);
+    });
+});
+
+router.post("/:id/ulasan", (req, res) => {
+    const { id } = req.params; // ID tempat ibadah
+    const { user_id, rating, komentar } = req.body;
+
+    const sql = `
+        INSERT INTO reviews (tempat_ibadah_id, user_id, rating, komentar)
+        VALUES (?, ?, ?, ?)
+    `;
+
+    db.query(sql, [id, user_id, rating, komentar], (err, result) => {
+        if (err) return res.status(500).send(err);
+        res.json({ message: "Ulasan berhasil ditambahkan", reviewId: result.insertId });
+    });
+});
+
+
 module.exports = router;
