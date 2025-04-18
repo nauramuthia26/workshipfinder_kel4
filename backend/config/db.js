@@ -16,7 +16,7 @@ db.connect((err) => {
     }
     console.log("Connected to MySQL Database");
 
-    // 🔹 Membuat tabel Users jika belum ada
+    // 🔹 Membuat tabel Users
     const createUsersTable = `
         CREATE TABLE IF NOT EXISTS Users (
             id_user INT AUTO_INCREMENT PRIMARY KEY,
@@ -28,7 +28,7 @@ db.connect((err) => {
         );
     `;
 
-    // 🔹 Membuat tabel Tempat_Ibadah jika belum ada
+    // 🔹 Membuat tabel Tempat_Ibadah
     const createTempatIbadahTable = `
         CREATE TABLE IF NOT EXISTS Tempat_Ibadah (
             tempat_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -49,7 +49,7 @@ db.connect((err) => {
         );
     `;
 
-    // 🔹 Membuat tabel Jadwal_Ibadah jika belum ada
+    // 🔹 Membuat tabel Jadwal_Ibadah 
     const createJadwalIbadahTable = `
         CREATE TABLE IF NOT EXISTS Jadwal_Ibadah (
             jadwal_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -61,7 +61,7 @@ db.connect((err) => {
     );
 `;
 
-    // 🔹 Membuat tabel Fasilitas jika belum ada
+    // 🔹 Membuat tabel Fasilitas 
     const createFasilitasTable= `
     CREATE TABLE IF NOT EXISTS Fasilitas (
         fasilitas_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -72,20 +72,20 @@ db.connect((err) => {
     );
 `;
 
-// 🔹 Membuat tabel Ulasan jika belum ada
+// 🔹 Membuat tabel Ulasan 
     const createUlasanTable = `
     CREATE TABLE IF NOT EXISTS Ulasan (
         ulasan_id INT AUTO_INCREMENT PRIMARY KEY,
-        user_id INT,
+        id_user INT,
         tempat_ibadah_id INT,
         tanggal TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         komentar TEXT,
-        FOREIGN KEY (user_id) REFERENCES Users(id_user) ON DELETE CASCADE,
+        FOREIGN KEY (id_user) REFERENCES Users(id_user) ON DELETE CASCADE,
         FOREIGN KEY (tempat_ibadah_id) REFERENCES Tempat_Ibadah(tempat_id) ON DELETE CASCADE
     );
 `;
 
-// 🔹 Membuat tabel Tempat_Ibadah_Request jika belum ada
+// 🔹 Membuat tabel Tempat_Ibadah_Request 
     const createTempatIbadahRequestTable = `
     CREATE TABLE IF NOT EXISTS Tempat_Ibadah_Request (
         request_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -101,7 +101,7 @@ db.connect((err) => {
     );
 `;
 
-// 🔹 Membuat tabel Tempat_Ibadah_Approval jika belum ada
+// 🔹 Membuat tabel Tempat_Ibadah_Approval 
     const createTempatIbadahApprovalTable = `
     CREATE TABLE IF NOT EXISTS Tempat_Ibadah_Approval (
         approval_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -113,12 +113,25 @@ db.connect((err) => {
     );
 `;
 
-// 🔹 Membuat tabel Tempat_Ibadah_Approval jika belum ada
+// 🔹 Membuat tabel Foto 
     const createFotoTable = `
     CREATE TABLE IF NOT EXISTS Foto (
     foto_id INT AUTO_INCREMENT PRIMARY KEY,
     tempat_id INT,
     url TEXT NOT NULL,
+    FOREIGN KEY (tempat_id) REFERENCES Tempat_Ibadah(tempat_id) ON DELETE CASCADE
+    );
+`;
+
+// 🔹 Membuat tabel Event
+    const createEventTable = `
+    CREATE TABLE IF NOT EXISTS Event (
+    event_id INT AUTO_INCREMENT PRIMARY KEY,
+    tempat_id INT,
+    nama_event VARCHAR(255) NOT NULL,
+    deskripsi TEXT,
+    tanggal_mulai DATE,
+    tanggal_selesai DATE,
     FOREIGN KEY (tempat_id) REFERENCES Tempat_Ibadah(tempat_id) ON DELETE CASCADE
     );
 `;
@@ -185,6 +198,14 @@ db.connect((err) => {
             console.error("Error creating Foto table: ", err);
         } else {
             console.log("Foto table ready!");
+        }
+    });
+
+    db.query(createEventTable, (err, result) => {
+        if (err) {
+            console.error("Error creating Event table: ", err);
+        } else {
+            console.log("Event table ready!");
         }
     });
 });

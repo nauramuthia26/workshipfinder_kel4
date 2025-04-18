@@ -32,6 +32,7 @@ app.use('/auth', authRoutes);
 app.use("/api/tempat-ibadah", tempatIbadahRoutes);
 app.use("/api/event", eventRoutes);
 app.use("/api/foto", fotoRoutes);
+app.use("/api/event", eventRoutes);
 app.use('/filter', filterRoutes);
 
 const PORT = process.env.PORT || 3000;
