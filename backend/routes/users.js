@@ -56,5 +56,28 @@ router.post('/register', (req, res) => {
     });
 });
 
+router.get('/:id/ulasan', (req, res) => {
+    const { id } = req.params;
+    const sql = `
+        SELECT r.*, t.nama_tempat 
+        FROM reviews r
+        JOIN Tempat_Ibadah t ON r.tempat_ibadah_id = t.tempat_id
+        WHERE r.user_id = ?`;
+
+    db.query(sql, [id], (err, results) => {
+        if (err) return res.status(500).send(err);
+        res.json(results);
+    });
+});
+
+router.get('/:id/tempatIbadah', (req, res) => {
+    const { id } = req.params;
+    const sql = "SELECT * FROM Tempat_Ibadah WHERE user_id = ?";
+
+    db.query(sql, [id], (err, results) => {
+        if (err) return res.status(500).send(err);
+        res.json(results);
+    });
+});
 
 module.exports = router;
