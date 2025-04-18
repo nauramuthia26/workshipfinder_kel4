@@ -13,6 +13,7 @@ const tempatIbadahApprovalRoutes = require('./routes/tempatIbadahApproval');
 const tempatIbadahRoutes = require("./routes/tempatIbadahRoutes");
 const eventRoutes = require("./routes/eventRoutes");
 const fotoRoutes = require("./routes/fotoRoutes");
+const kontakRoutes = require('./router/kontakKami');
 
 // Middleware
 app.use(express.urlencoded({ extended: true }));
@@ -34,6 +35,7 @@ app.use("/api/event", eventRoutes);
 app.use("/api/foto", fotoRoutes);
 app.use("/api/event", eventRoutes);
 app.use('/filter', filterRoutes);
+app.use('/kontakKami', kontakRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
