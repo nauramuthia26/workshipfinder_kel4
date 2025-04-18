@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kontak Kami - WorshipFinder</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .contact-section {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      padding: 30px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .contact-form, .address-info {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      padding: 30px;
+      flex: 1;
+    }
+
+    .contact-form h2, .address-info h2 {
+      color: #2f4f2f;
+      margin-top: 0;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    .submit-btn {
+      background-color: #4d6f4a;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    .submit-btn:hover {
+      background-color: #3e5d3b;
+    }
+
+    .worship-gallery {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .worship-image {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 5px;
+      transition: transform 0.3s;
+    }
+
+    .worship-image:hover {
+      transform: scale(1.03);
+    }
+
+    .image-caption {
+      text-align: center;
+      font-size: 12px;
+      margin-top: 5px;
+      color: #555;
+    }
+
+   
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-container">
+      <div class="logo">WorshipFinder</div>
+      <nav>
+        <a href="index.html">Beranda</a>
+        <div class="dropdown">
+          <a href="#" class="dropdown-toggle">Data</a>
+          <div class="dropdown-menu">
+            <a href="detail/masjid.html">Profil Masjid</a>
+            <a href="detail/gereja-katolik.html">Profil Gereja Katolik</a>
+            <a href="detail/gereja-protestan.html">Profil Gereja Protestan</a>
+            <a href="detail/pura.html">Profil Pura</a>
+            <a href="detail/vihara.html">Profil Vihara</a>
+            <a href="detail/kelenteng.html">Profil Kelenteng</a>
+          </div>
+        </div>
+        <a href="kontak.html">Kontak Kami</a>
+        <a href="login.html">Login</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="contact-section">
+    <div class="contact-form">
+      <h2>Kontak Kami</h2>
+      <form action="http://localhost:3000/api/kontak" method="POST">
+        <div class="form-group">
+          <label for="nama">Nama</label>
+          <input type="text" id="nama" name="nama" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="pesan">Aduan/Saran</label>
+          <input type="text" id="pesan" name="pesan" required>
+        </div>
+      
+        <button type="submit" class="submit-btn">Kirim</button>
+      </form>
+      
+    </div>
+    
+    <div class="address-info">
+      <h2>Alamat Kami</h2>
+      <p>Temukan Rumah Ibadah Terdekat...</p>
+
+      <div class="worship-gallery">
+        <!-- Item 1 -->
+        <div>
+          <img src="assets/masjid.jpg" alt="Masjid" class="worship-image">
+          <div class="image-caption">Masjid</div>
+        </div>
+        
+        <!-- Item 2 -->
+        <div>
+          <img src="assets/katolik.jpg" alt="Katolik" class="worship-image">
+          <div class="image-caption">Gereja Katolik</div>
+        </div>
+        
+        <!-- Item 3 -->
+        <div>
+          <img src="assets/pura.jpg" alt="Pura" class="worship-image">
+          <div class="image-caption">Pura</div>
+        </div>
+        
+        <!-- Item 4 -->
+        <div>
+          <img src="assets/vihara.jpg" alt="Vihara" class="worship-image">
+          <div class="image-caption">Vihara</div>
+        </div>
+        
+        <!-- Item 5 -->
+        <div>
+          <img src="assets/protestan.jpg" alt="Protestan" class="worship-image">
+          <div class="image-caption">Gereja Protestan</div>
+        </div>
+        
+        <!-- Item 6 -->
+        <div>
+          <img src="assets/kelenteng.jpg" alt="Kelenteng" class="worship-image">
+          <div class="image-caption">Kelenteng</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+</body>
+</html>
