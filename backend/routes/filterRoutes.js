@@ -33,4 +33,33 @@ router.get('/kota', async (req, res) => {
   });
 });
 
+// Route hasil pencarian
+router.get('/search', async (req, res) => {
+  const { tipologi, provinsi, kota } = req.query;
+
+  let query = 'SELECT * FROM tempat_ibadah WHERE 1=1';
+  const params = [];
+
+  if (tipologi) {
+    query += ' AND tipologi = ?';
+    params.push(tipologi);
+  }
+
+  if (provinsi) {
+    query += ' AND provinsi = ?';
+    params.push(provinsi);
+  }
+
+  if (kota) {
+    query += ' AND kota = ?';
+    params.push(kota);
+  }
+
+  db.query(query, params, (err, results) => {
+    if (err) return res.status(500).json({ error: err.message });
+    res.json(results);
+  });
+});
+
+
 module.exports = router;

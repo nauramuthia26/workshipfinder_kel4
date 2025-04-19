@@ -3,7 +3,9 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const kontakRoutes = require('./routes/kontakRoutes');
 const cors = require("cors");
-app.use(cors());
+const authRoutes = require('../backend/routes/authRoutes');
+const tempatIbadahRoutes = require('../backend/routes/tempatIbadahRoutes');
+const filterRoutes = require('../backend/routes/filterRoutes');
 const app = express();
 
 
@@ -12,8 +14,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-const authRoutes = require('../backend/routes/authRoutes');
-const tempatIbadahRoutes = require('../backend/routes/tempatIbadahRoutes');
 app.use('/', authRoutes);
 app.use('/api', tempatIbadahRoutes);
 app.use('/api', kontakRoutes);

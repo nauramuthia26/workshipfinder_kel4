@@ -5,29 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WorshipFinder</title>
   <link rel="stylesheet" href="style.css" />
-  <body>
-    <header>
-        <div class="header-container">
-          <div class="logo">WorshipFinder</div>
-          <nav>
-            <a href="index.html">Beranda</a>
-            <div class="dropdown">
-                <a href="#" class="dropdown-toggle">Data</a>
-                <div class="dropdown-menu">
-                  <a href="hasilMasjid.html">Profil Masjid</a>
-                  <a href="hasilKatolik.html">Profil Gereja Katolik</a>
-                  <a href="hasilProtestan.html">Profil Gereja Protestan</a>
-                  <a href="hasilPura.html">Profil Pura</a>
-                  <a href="hasilVihara.html">Profil Vihara</a>
-                  <a href="hasilKelenteng.html">Profil Kelenteng</a>
-                </div>
-              </div>
-            <a href="kontak.html">Kontak Kami</a>
-          <a href="login.html">Login</a>
-        </nav>
-      </div>
-    </header>
-</body>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <div class="logo">WorshipFinder</div>
+      <nav>
+        <a href="index.html">Beranda</a>
+        <div class="dropdown">
+          <a href="#" class="dropdown-toggle">Data</a>
+          <div class="dropdown-menu">
+            <a href="hasilMasjid.html">Profil Masjid</a>
+            <a href="hasilKatolik.html">Profil Gereja Katolik</a>
+            <a href="hasilProtestan.html">Profil Gereja Protestan</a>
+            <a href="hasilPura.html">Profil Pura</a>
+            <a href="hasilVihara.html">Profil Vihara</a>
+            <a href="hasilKelenteng.html">Profil Kelenteng</a>
+          </div>
+        </div>
+        <a href="kontak.html">Kontak Kami</a>
+        <a href="login.html">Login</a>
+      </nav>
+    </div>
+  </header>
 
   <section>
     <h2>Kriteria Pencarian Masjid</h2>
@@ -37,56 +37,80 @@
 
   <section class="search-section">
     <div class="search-filters">
-      <select id="jenis"><option>Pilih Rumah Ibadah</option></select>
-      <select id="tipologi"><option>Tipologi</option></select>
-      <select id="provinsi"><option>Pilih Provinsi</option></select>
-      <select id="kabupaten"><option>Pilih Kabupaten</option></select>
+      <select id="jenis">
+        <option>Pilih Rumah Ibadah</option>
+      </select>
+      <select id="tipologi">
+        <option>Tipologi</option>
+      </select>
+      <select id="provinsi">
+        <option>Pilih Provinsi</option>
+      </select>
+      <select id="kabupaten">
+        <option>Pilih Kabupaten</option>
+      </select>
       <button onclick="handleSearch()">Cari</button>
     </div>
   </section>
 
   <script>
-    const urlParams = new URLSearchParams(window.location.search);
-const tipologi = urlParams.get('tipologi');
-const provinsi = urlParams.get('provinsi');
-const kabupaten = urlParams.get('kabupaten');
+    // Fungsi untuk mengambil nilai dari dropdown dan membangun URL
+    const buildSearchUrl = () => {
+      const tipologi = document.getElementById("tipologi").value;
+      const provinsi = document.getElementById("provinsi").value;
+      const kota = document.getElementById("kabupaten").value;
 
-document.getElementById("filter-info").innerHTML = `
-  <p><strong>Tipologi:</strong> ${tipologi}</p>
-  <p><strong>Provinsi:</strong> ${provinsi}</p>
-  <p><strong>Kabupaten:</strong> ${kabupaten}</p>
-`;
+      const params = new URLSearchParams();
 
-fetch(`http://localhost:3000/api/tempat-ibadah/search?tipologi=${tipologi}&provinsi=${provinsi}&kabupaten=${kabupaten}`)
-  .then(response => response.json())
-  .then(data => {
-    const container = document.getElementById("hasil-container");
-    if (data.length === 0) {
-      container.innerHTML = "<p>Tidak ada hasil ditemukan.</p>";
-    } else {
-      data.forEach(item => {
-        const card = document.createElement("div");
-        card.className = "card";
-        card.innerHTML = `
-          <div class="card-image">
-            <img src="${item.image_url}" alt="${item.nama_tempat}" />
-          </div>
-          <div class="card-content">
-            <h3>${item.nama_tempat}</h3>
-            <p><strong>Buka:</strong> ${item.jam_buka} WIB - <strong>Tutup:</strong> ${item.jam_tutup} WIB</p>
-            <p><strong>Kapasitas:</strong> ${item.kapasitas} Orang</p>
-            <p>${item.alamat}</p>
-            <button onclick="window.open('${item.link_peta}', '_blank')">Lihat Peta</button>
-          </div>
-        `;
-        container.appendChild(card);
-      });
-    }
-  })
-  .catch(err => {
-    console.error(err);
-    document.getElementById("hasil-container").innerHTML = "<p>Gagal mengambil data.</p>";
-  });
+      if (tipologi && tipologi !== 'null') params.append('tipologi', tipologi);
+      if (provinsi && provinsi !== 'null') params.append('provinsi', provinsi);
+      if (kota && kota !== 'null') params.append('kabupaten', kota);
+
+      return `http://localhost:3000/api/tempat-ibadah/search?${params.toString()}`;
+    };
+
+    // Fungsi untuk menangani pencarian dan menampilkan hasil
+    const handleSearch = () => {
+      const url = buildSearchUrl(); 
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          const container = document.getElementById("hasil-container");
+
+          if (!Array.isArray(data)) {
+            console.error("Respon bukan array:", data);
+            container.innerHTML = "<p>Data tidak ditemukan.</p>";
+            return;
+          }
+
+          if (data.length === 0) {
+            container.innerHTML = "<p>Tidak ada hasil ditemukan.</p>";
+          } else {
+            container.innerHTML = ''; // Clear previous results
+            data.forEach(item => {
+              const card = document.createElement("div");
+              card.className = "card";
+              card.innerHTML = `
+                <div class="card-image">
+                  <img src="${item.image_url}" alt="${item.nama_tempat}" />
+                </div>
+                <div class="card-content">
+                  <h3>${item.nama_tempat}</h3>
+                  <p><strong>Buka:</strong> ${item.jam_buka} WIB - <strong>Tutup:</strong> ${item.jam_tutup} WIB</p>
+                  <p><strong>Kapasitas:</strong> ${item.kapasitas} Orang</p>
+                  <p>${item.alamat}</p>
+                  <button onclick="window.open('${item.link_peta}', '_blank')">Lihat Peta</button>
+                </div>
+              `;
+              container.appendChild(card);
+            });
+          }
+        })
+        .catch(err => {
+          console.error(err);
+          document.getElementById("hasil-container").innerHTML = "<p>Gagal mengambil data.</p>";
+        });
+    };
   </script>
 </body>
 </html>
