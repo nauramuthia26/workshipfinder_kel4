@@ -25,8 +25,6 @@ app.use(bodyParser.json());
 
 // Koneksi ke MongoDB
 mongoose.connect('mongodb://localhost:27017/worshipfinder_kel4', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
   })
   .then(() => console.log('Terhubung ke MongoDB'))
   .catch((err) => console.error('Gagal konek MongoDB:', err));
